@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EruidtE E-Learning</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(to bottom, #f5f7fa, #c3cfe2); }
+            100% { background: linear-gradient(to bottom, #c3cfe2, #f5f7fa); }
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .navbar .title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar .search-bar {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .navbar .search-icon {
+            background-color: #0056b3;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .navbar .search-icon-mobile {
+            display: none;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .navbar .links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ffcc00;
+        }
+
+        .navbar .hamburger {
+            display: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .navbar .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 3px 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .navbar .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .navbar .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .navbar .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .navbar-links {
+            display: flex;
+        }
+
+        .navbar.mobile-active .links,
+        .navbar.mobile-active .title {
+            display: none;
+        }
+
+        .navbar.mobile-active .search-bar {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .course-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .course-box {
+            width: 200px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+            background: white;
+        }
+
+        .course-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-box:active {
+            background: linear-gradient(to right, #1a73e8, #ffcc00);
+        }
+
+        .course-page {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .course-page .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .course-description {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .course-description h1 {
+            font-size: 2rem;
+            color: #1a73e8;
+        }
+
+        .course-description h2 {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .skills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .skill {
+            background-color: #e8f0fe;
+            border: 1px solid #1a73e8;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            color: #1a73e8;
+        }
+
+        .enroll-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .enroll-button:hover {
+            background-color: #218838;
+        }
+
+        .all-courses-page {
+            display: flex;
+        }
+
+        .filters {
+            width: 200px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters h3 {
+            margin-top: 0;
+        }
+
+        .filters label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .filters .clear-filters {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .filters .clear-filters:hover {
+            background-color: #c82333;
+        }
+
+        .all-courses {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-input {
+            margin: 10px 0;
+            padding: 5px;
+            width: 90%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar .links {
+                display: none;
+            }
+
+            .navbar .hamburger {
+                display: block;
+            }
+
+            .navbar-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 50px;
+                background-color: #1a73e8;
+                width: 100%;
+                left: 0;
+            }
+
+            .navbar .search-bar {
+                display: none;
+            }
+
+            .navbar.mobile-active .search-bar {
+                display: flex;
+            }
+
+            .navbar .search-icon {
+                display: none;
+            }
+
+            .navbar .search-icon-mobile {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="title">EruidtE</div>
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search courses...">
+            <div class="search-icon" onclick="toggleSearchBar()">🔍</div>
+        </div>
+        <button class="search-icon-mobile" onclick="toggleSearchBarMobile()">🔍</button>
+        <div class="links navbar-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#" onclick="showAllCoursesPage()">Courses</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- Course Container -->
+    <div class="course-container">
+        <div class="course-box" onclick="openCoursePage('Course 1')">Course 1</div>
+        <div class="course-box" onclick="openCoursePage('Course 2')">Course 2</div>
+        <div class="course-box" onclick="openCoursePage('Course 3')">Course 3</div>
+    </div>
+
+    <!-- All Courses Page -->
+    <div class="all-courses-page" style="display: none;">
+        <div class="filters">
+            <h3>Filters</h3>
+            <input class="filter-input" type="text" placeholder="Filter by name">
+            <label>
+                <input type="checkbox"> 5 Stars
+            </label>
+            <label>
+                <input type="checkbox"> 4 Stars
+            </label>
+            <label>
+                <input type="checkbox"> 3 Stars and Below
+            </label>
+            <button class="clear-filters" onclick="clearFilters()">Clear Filters</button>
+        </div>
+        <div class="all-courses">
+            <div class="course-box">Course 1</div>
+            <div class="course-box">Course 2</div>
+            <div class="course-box">Course 3</div>
+            <div class="course-box">Course 4</div>
+            <div class="course-box">Course 5</div>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navbarLinks = document.querySelector('.navbar-links');
+            const hamburger = document.querySelector('.hamburger');
+            navbarLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function openCoursePage(courseName) {
+            const coursePage = document.createElement('div');
+            coursePage.classList.add('course-page');
+
+            coursePage.innerHTML = `
+                <div class="navbar">
+                    <div class="title">${courseName}</div>
+                    <button class="search-icon-mobile" onclick="toggleSearchBarMobile()">🔍</button>
+                    <div class="hamburger" onclick="toggleMenu()">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="course-description">
+                    <h1>${courseName}</h1>
+                    <h2>Instructor: John Doe</h2>
+                    <button class="enroll-button">Enroll Now</button>
+                    <div class="skills">
+                        <span class="skill">Skill 1</span>
+                        <span class="skill">Skill 2</span>
+                        <span class="skill">Skill 3</span>
+                    </div>
+                    <p>This course is designed to provide an in-depth understanding of ${courseName}. You'll learn essential skills and knowledge to help you excel in your field.</p>
+                </div>
+            `;
+
+            document.body.innerHTML = '';
+            document.body.appendChild(coursePage);
+        }
+
+        function showAllCoursesPage() {
+            document.querySelector('.course-container').style.display = 'none';
+            document.querySelector('.all-courses-page').style.display = 'flex';
+        }
+
+        function toggleSearchBar() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('mobile-active');
+        }
+
+        function toggleSearchBarMobile() {
+            const navbar = document.querySelector('.navbar');
+            navbar.innerHTML = `
+                <div class="search-bar">
+                    <input type="text" id="search" placeholder="Search courses...">
+                    <div class="search-icon" onclick="toggleSearchBar()">🔍</div>
+                </div>
+            `;
+        }
+
+        function clearFilters() {
+            const checkboxes = document.querySelectorAll('.filters input[type="checkbox"]');
+            const textInputs = document.querySelectorAll('.filters input[type="text"]');
+
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            textInputs.forEach(input => input.value = '');
+        }
+
+        const searchInput = document.getElementById('search');
+        searchInput.addEventListener('input', function () {
+            const value = searchInput.value.toLowerCase();
+            const suggestions = ["Course 1", "Course 2", "Course 3"].filter(course => course.toLowerCase().includes(value));
+
+            if (suggestions.length > 0) {
+                alert("Suggestions: " + suggestions.join(', '));
+            }
+        });
+    </script>
+</body>
+</html>
