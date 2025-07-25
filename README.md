@@ -24,11 +24,10 @@ Erudite is a modern e-learning platform designed to make education accessible, e
 Make sure you have the following installed:
 
 - Python 3.8+
-- Node.js & npm (for frontend)
 - PostgreSQL / SQLite
 - Git
 
-### Backend Setup (Django / Flask / FastAPI)
+### Backend Setup (Flask)
 
 ```bash
 git clone https://github.com/yourusername/erudite.git
